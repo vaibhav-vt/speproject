@@ -1,9 +1,13 @@
-FROM node:17-alpine3.12
-WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
-COPY package-lock.json ./
+FROM node:14.9
+
+WORKDIR '/app'
+ADD . /app
+
+COPY package*.json ./
 RUN npm install
+
 COPY . .
+
 EXPOSE 3000
-CMD ["npm", "start"]
+
+CMD ["npm","run", "start"]
