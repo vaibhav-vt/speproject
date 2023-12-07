@@ -37,7 +37,7 @@ services:
     environment:
       URI: mysql://mysqldb:3306/
     ports:
-      - "8800:8800"
+      - "8000:8000"
     depends_on:
       - mysqldb
     container_name: backend
