@@ -14,7 +14,7 @@
         dest: docker_compose.yml
     - name: shell docker
       shell:
-        cmd: docker-compose down
+        cmd: docker_compose down
     - name: docker compose
       docker_compose:
         project_src: .
