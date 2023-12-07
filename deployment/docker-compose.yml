@@ -23,7 +23,7 @@ services:
     container_name: frontend
     environment:
       PORT: 3000
-      PROXY_API: http://backend:8800/
+      PROXY_API: http://backend:8000/
     ports:
       - "3000:3000"
     networks:
