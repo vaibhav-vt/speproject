@@ -10,7 +10,8 @@ services:
       MYSQL_ROOT_PASSWORD: Pass_word1
       MYSQL_DATABASE: blog
       # MYSQL_USER: root
-      # MYSQL_PASSWORD: Kota@2020
+      # MYSQL_PASSWORD: Pass_word1
+      # MYSQL_DATABASE: blog
     ports:
       - "3306:3306"
     networks:
