@@ -35,7 +35,10 @@ services:
   backend:
     image: vaibhavvt/proj-backend:latest
     environment:
-      URI: mysql://mysqldb:3306/
+      - MYSQL_HOST: localhost
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: Pass_word1
+      - MYSQL_DATABASE: blog
     ports:
       - "8000:8000"
     depends_on:
