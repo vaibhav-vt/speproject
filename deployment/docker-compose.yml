@@ -23,7 +23,7 @@ services:
     container_name: frontend
     environment:
       PORT: 3000
-      # PROXY_API: http://backend:8000/
+      PROXY_API: http://backend:8000/
     ports:
       - "3000:3000"
     networks:
@@ -35,10 +35,10 @@ services:
   backend:
     image: vaibhavvt/proj-backend:latest
     environment:
-      - MYSQL_HOST: localhost
-      - MYSQL_USER: root
-      - MYSQL_PASSWORD: Pass_word1
-      - MYSQL_DATABASE: blog
+      MYSQL_HOST: localhost
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Pass_word1
+      MYSQL_DATABASE: blog
     ports:
       - "8000:8000"
     depends_on:
