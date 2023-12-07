@@ -1,16 +1,25 @@
 ---
-- name: Pull docker image of frontend
-  hosts: localhost
+- name: Deploy Docker Image to Container
+  hosts: all
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: Pull front-end image
-      docker_image:
-        name: vaibhavvt/proj-frontend:latest
-        source: pull
     - name: Start docker service
       service:
         name: docker
         state: started
-    - name: Running container
-      shell: docker run -it -d --name FrontEnd vaibhavvt/proj-frontend
+    - name: copy docker file
+      copy:
+        src: docker_compose.yml
+        dest: docker_compose.yml
+    - name: shell docker
+      shell:
+        cmd: docker-compose down
+    - name: docker compose
+      docker_compose:
+        project_src: .
+        files:
+          - docker_compose.yml
+        state: present
+    - name: Prune dangling docker images
+      command: docker image prune --force

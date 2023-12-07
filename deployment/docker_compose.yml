@@ -1,0 +1,55 @@
+version: '3'
+services:
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    # restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass_word1
+      MYSQL_DATABASE: blog
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: Kota@2020
+    ports:
+      - "3306:3306"
+    networks:
+      - my-network
+  
+  frontend:
+    image: vaibhavvt/proj-frontend:latest
+    # restart: always
+    container_name: frontend
+    # environment:
+    #   PORT: 3000
+    #   PROXY_API: http://playground-web-backend:8080/
+    ports:
+      - "3000:3000"
+    networks:
+      - my-network
+    links:
+      - backend
+  
+  
+  backend:
+    image: vaibhavvt/proj-backend:latest
+    environment:
+      URI: mysql://mysqldb:3306/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysqldb
+    container_name: backend
+    
+    volumes:
+      - /logs:/logs
+    networks:
+      - my-network
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  my-network:
+    driver: bridge
