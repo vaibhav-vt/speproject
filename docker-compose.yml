@@ -1,0 +1,38 @@
+version: '3'
+services:
+  project-web-db:
+    image: mongo:latest
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - node-network
+    ports:
+      - 27017:27017
+  project-frontend:
+    image: vaibhavvt/proj-frontend:latest
+    environment:
+      PORT: 3000
+      PROXY_API: http://project-web-backend:8000/
+    restart: always
+    ports:
+      - 3000:3000
+  project-web-backend:
+    image: vaibhavvt/proj-backend:latest
+    environment:
+      URI: mongodb://project-web-db:27017
+    restart: always
+    depends_on:
+      - project-web-db
+    volumes:
+      - .:/src
+    networks:
+      - node-network
+    ports:
+      - 8000:8000
+
+volumes:
+  mongodata:
+
+networks:
+  node-network:
+    driver: bridge
