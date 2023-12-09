@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npm","run", "start:frontend"]
+CMD ["npm","run", "start"]
