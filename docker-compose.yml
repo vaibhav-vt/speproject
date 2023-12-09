@@ -19,7 +19,7 @@ services:
   project-web-backend:
     image: vaibhavvt/proj-backend:latest
     environment:
-      URI: mongodb://project-web-db:27017
+      MONGO_URL: mongodb://project-web-db:27017
     restart: always
     depends_on:
       - project-web-db
@@ -28,7 +28,7 @@ services:
     networks:
       - node-network
     ports:
-      - 8000:8000
+      - 4000:4000
 
 volumes:
   mongodata:
