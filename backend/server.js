@@ -37,17 +37,6 @@ mongoose.connect(
   }
 );
 
-// const db = async () => {
-//   try {
-//       mongoose.set('strictQuery', false)
-//       await mongoose.connect('mongodb://mongodb:27017/')
-//       console.log('Db Connected')
-//   } catch (error) {
-//       console.log('DB Connection Error');
-//   }
-// }
-// db();
-
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to LibraryApp");
 });
