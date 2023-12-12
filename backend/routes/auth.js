@@ -27,6 +27,8 @@ router.post("/register", async (req, res) => {
       isAdmin: req.body.isAdmin,
     });
 
+    console.log(newuser);
+
     /* Save User and Return */
     const user = await newuser.save();
     res.status(200).json(user);

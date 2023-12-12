@@ -11,7 +11,7 @@ services:
 
   backend:
     environment:
-      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
+      MONGO_URL: mongodb://localhost:27017/
     image: vaibhavvt/proj-backend
     ports:
       - "4000:4000"
@@ -22,3 +22,6 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - ./backend/
+      # mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
