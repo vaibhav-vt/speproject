@@ -25,28 +25,28 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/categories", categoryRoutes);
 
 /* MongoDB connection */
-// mongoose.connect(
-//   process.env.MONGO_URL,
-//   {
-//     useCreateIndex: true,
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   },
-//   () => {
-//     console.log("MONGODB CONNECTED");
-//   }
-// );
-
-const db = async () => {
-  try {
-      mongoose.set('strictQuery', false)
-      await mongoose.connect('mongodb://mongodb:27017/')
-      console.log('Db Connected')
-  } catch (error) {
-      console.log('DB Connection Error');
+mongoose.connect(
+  process.env.MONGO_URL,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log("MONGODB CONNECTED");
   }
-}
-db();
+);
+
+// const db = async () => {
+//   try {
+//       mongoose.set('strictQuery', false)
+//       await mongoose.connect('mongodb://mongodb:27017/')
+//       console.log('Db Connected')
+//   } catch (error) {
+//       console.log('DB Connection Error');
+//   }
+// }
+// db();
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to LibraryApp");
