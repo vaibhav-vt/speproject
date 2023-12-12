@@ -1,38 +1,24 @@
-version: '3'
+version: '3.5'
 services:
-  project-web-db:
-    image: mongo:latest
-    volumes:
-      - mongodata:/data/db
-    networks:
-      - node-network
-    ports:
-      - 27017:27017
-  project-frontend:
-    image: vaibhavvt/proj-frontend:latest
+  frontend:
     environment:
-      PORT: 3000
-      PROXY_API: http://project-web-backend:8000/
-    restart: always
+      REACT_APP_API_URL: http://localhost:4000/
+    image: vaibhavvt/proj-frontend
     ports:
-      - 3000:3000
-  project-web-backend:
-    image: vaibhavvt/proj-backend:latest
-    environment:
-      MONGO_URL: mongodb://project-web-db:27017
-    restart: always
+      - "3000:3000"
     depends_on:
-      - project-web-db
-    volumes:
-      - .:/src
-    networks:
-      - node-network
+      - backend
+
+  backend:
+    environment:
+      MONGO_URL: mongodb+srv://vaibhavthapliyal19:naitik@cluster0.5bkzwu6.mongodb.net/?retryWrites=true&w=majority
+    image: vaibhavvt/proj-backend
     ports:
-      - 4000:4000
+      - "4000:4000"
 
-volumes:
-  mongodata:
-
-networks:
-  node-network:
-    driver: bridge
+    # depends_on:
+    #   - mongodb
+  # mongodb:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"

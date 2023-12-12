@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     const hashedPass = await bcrypt.hash(req.body.password, salt);
 
     /* Create a new user */
-    const newuser = await new User({
+    const newuser = new User({
       userType: req.body.userType,
       userFullName: req.body.userFullName,
       admissionId: req.body.admissionId,
@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
       address: req.body.address,
       mobileNumber: req.body.mobileNumber,
       email: req.body.email,
-      password: hashedPass,
+      password: req.body.password,
       isAdmin: req.body.isAdmin,
     });
 
@@ -37,6 +37,7 @@ router.post("/register", async (req, res) => {
 
 /* User Login */
 router.post("/signin", async (req, res) => {
+  console.log("hello_back_end");
   try {
     console.log(req.body, "req");
     const user = req.body.admissionId
@@ -46,12 +47,11 @@ router.post("/signin", async (req, res) => {
       : await User.findOne({
           employeeId: req.body.employeeId,
         });
-
     console.log(user, "user");
-
+    console.log("hello");
     !user && res.status(404).json("User not found");
 
-    const validPass = await bcrypt.compare(req.body.password, user.password);
+    const validPass =user.password===req.body.password;
     !validPass && res.status(400).json("Wrong Password");
 
     res.status(200).json(user);

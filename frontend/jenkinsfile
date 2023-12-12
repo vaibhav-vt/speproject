@@ -1,0 +1,53 @@
+pipeline{
+    agent any
+    stages{
+        stage('stage 1: git clone'){
+            steps{
+                git branch: 'master',
+                url:'https://github.com/vaibhav-vt/speproject.git'
+            }
+        }
+        stage('stage 2: build'){
+            steps{
+                sh 'cd frontend npm install'
+            }
+        }
+        stage('stage 3: build frontend docker'){
+            steps{
+                dir('frontend'){
+                    sh 'docker build -t vaibhavvt/proj-frontend:latest .'
+                }
+            }
+        }
+        stage('stage 4: push docker image to dockerhub'){
+            steps{
+                script{
+                    docker.withRegistry('', 'DockerHubCred'){
+                        sh 'docker push vaibhavvt/proj-frontend:latest'
+                    }
+                }
+            }
+        }
+        // stage('Stage 5: Clean docker images') {
+        //     steps {
+        //         script {
+        //             sh 'sudo do'
+        //         }
+        //     }
+        // }
+        // stage('stage 6: Ansible Deployment') {
+        //     steps {
+        //         ansiblePlaybook(
+        //             becomeUser: null,
+        //             colorized: true,
+        //             credentialsId: 'localhost',
+        //             disableHostKeyChecking: true,
+        //             installation: 'Ansible',
+        //             inventory: './deployment/inventory',
+        //             playbook: './deployment/deploy.yml',
+        //             sudoUser: null
+        //         )
+        //     }
+        // }
+    }
+}

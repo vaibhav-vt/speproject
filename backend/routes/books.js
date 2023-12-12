@@ -40,17 +40,16 @@ router.get("/", async (req, res) => {
 
 /* Adding book */
 router.post("/addbook", async (req, res) => {
-    if (req.body.isAdmin) {
+    if (true) {
         try {
             const newbook = await new Book({
                 bookName: req.body.bookName,
                 alternateTitle: req.body.alternateTitle,
                 author: req.body.author,
-                bookCountAvailable: req.body.bookCountAvailable,
                 language: req.body.language,
                 publisher: req.body.publisher,
-                bookStatus: req.body.bookSatus,
-                categories: req.body.categories
+                bookCountAvailable: req.body.bookCountAvailable,
+                categories: req.body.categories,
             })
             const book = await newbook.save()
             await BookCategory.updateMany({ '_id': book.categories }, { $push: { books: book._id } });
@@ -61,7 +60,7 @@ router.post("/addbook", async (req, res) => {
         }
     }
     else {
-        return res.status(403).json("You dont have permission to delete a book!");
+        return res.status(403).json("You dont have permission to add a book!");
     }
 })
 

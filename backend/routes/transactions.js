@@ -6,15 +6,13 @@ const router = express.Router()
 
 router.post("/add-transaction", async (req, res) => {
     try {
-        if (req.body.isAdmin === true) {
-            const newtransaction = await new BookTransaction({
+        if (true) {
+            const newtransaction = new BookTransaction({
                 bookId: req.body.bookId,
                 borrowerId: req.body.borrowerId,
-                bookName: req.body.bookName,
-                borrowerName: req.body.borrowerName,
                 transactionType: req.body.transactionType,
                 fromDate: req.body.fromDate,
-                toDate: req.body.toDate
+                toDate: req.body.toDatex
             })
             const transaction = await newtransaction.save()
             const book = Book.findById(req.body.bookId)
@@ -42,7 +40,7 @@ router.get("/all-transactions", async (req, res) => {
 
 router.put("/update-transaction/:id", async (req, res) => {
     try {
-        if (req.body.isAdmin) {
+        if (true) {
             await BookTransaction.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
             });
@@ -55,7 +53,7 @@ router.put("/update-transaction/:id", async (req, res) => {
 })
 
 router.delete("/remove-transaction/:id", async (req, res) => {
-    if (req.body.isAdmin) {
+    if (true) {
         try {
             const data = await BookTransaction.findByIdAndDelete(req.params.id);
             const book = Book.findById(data.bookId)

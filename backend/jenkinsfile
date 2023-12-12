@@ -1,0 +1,32 @@
+pipeline{
+    agent any
+    stages{
+        stage('stage 1: git clone'){
+            steps{
+                git branch: 'master',
+                url:'https://github.com/vaibhav-vt/speproject.git'
+            }
+        }
+        stage('stage 2: build'){
+            steps{
+                sh 'cd backend npm install'
+            }
+        }
+        stage('stage 3: build backend docker'){
+            steps{
+                dir('backend'){
+                    sh 'docker build -t vaibhavvt/proj-backend:latest .'
+                }
+            }
+        }
+        stage('stage 4: push docker image to dockerhub'){
+            steps{
+                script{
+                    docker.withRegistry('', 'DockerHubCred'){
+                        sh 'docker push vaibhavvt/proj-backend:latest'
+                    }
+                }
+            }
+        }
+    }
+}

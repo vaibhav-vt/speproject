@@ -21,10 +21,10 @@ function App() {
             <Home />
           </Route>
           <Route exact path='/signin'>
-            {user ? (user.isAdmin ? <Redirect to='/dashboard@admin' />:<Redirect to='/dashboard@member' />) : <Signin />}
+            {user ? (user.isAdmin ? <Redirect to='/dashboard@admin' />:<Redirect to='/dashboard@admin' />) : <Signin />}
           </Route>
-          <Route exact path='/dashboard@member'>
-            {user ? (user.isAdmin === false ? <MemberDashboard /> : <Redirect to='/' />) : <Redirect to='/' />}
+          <Route exact path='/dashboard@admin'>
+            {user ? (user.isAdmin === false ? <AdminDashboard /> : <Redirect to='/' />) : <Redirect to='/' />}
           </Route>
           <Route exact path='/dashboard@admin'>
             {user ? (user.isAdmin === true ? <AdminDashboard /> : <Redirect to='/' />) : <Redirect to='/' />}
